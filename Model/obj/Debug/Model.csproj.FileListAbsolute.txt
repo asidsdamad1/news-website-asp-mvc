@@ -1,0 +1,12 @@
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\Model.dll.config
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\Model.dll
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\Model.pdb
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\EntityFramework.dll
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\EntityFramework.SqlServer.dll
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\EntityFramework.xml
+E:\nam4\Web\NewsWebsite\Model\bin\Debug\EntityFramework.SqlServer.xml
+E:\nam4\Web\NewsWebsite\Model\obj\Debug\Model.csproj.AssemblyReference.cache
+E:\nam4\Web\NewsWebsite\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+E:\nam4\Web\NewsWebsite\Model\obj\Debug\Model.csproj.CopyComplete
+E:\nam4\Web\NewsWebsite\Model\obj\Debug\Model.dll
+E:\nam4\Web\NewsWebsite\Model\obj\Debug\Model.pdb

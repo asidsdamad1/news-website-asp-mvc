@@ -1,0 +1,104 @@
+﻿@model NewsWebsite.ViewModel.UserListModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-4">
+        <div class="card" style="margin-top:20px">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Thông tin người dùng</p>
+                <p class="text-danger">@ViewBag.anno</p>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        <div class="input-group-append">
+                            <span class="fa fa-user input-group-text"></span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="input-group-append">
+                                <span class="fa fa-user input-group-text"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2 d-none" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control d-none" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    @{ if (User.IsInRole("1"))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.role_id, "role_id", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="input-group">
+                                    @Html.DropDownList("role_id", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Role.role_name, "Role", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.Role.role_name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+
+            </div>
+                    <div class="row">
+                        <div class="col-6">
+                            @*<div class="checkbox icheck">
+                                    <label>
+                                        <input name="status" type="checkbox" checked> Bật <a href="#">terms</a>
+                                    </label>
+                                </div>*@
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-6 row">
+                            <div class="col-6">
+
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">Lưu</button>
+                            </div>
+                           
+                            <div class="col-6">
+                                @Html.ActionLink("Cancel", "UserManager", "User", new { @class = "btn btn-danger btn-block btn-flat " })
+
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>}
+
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

@@ -1,0 +1,136 @@
+﻿    <!-- Sidebar user panel (optional) -->
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img src="~/Content/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        @Html.ActionLink(@User.Identity.Name, "Edit", "User", new { username = User.Identity.Name }, null)
+        @*<a href="/User/Details" class="d-block">
+            
+        </a>*@
+    </div>
+</div>
+
+<!-- SidebarSearch Form -->
+<!-- Sidebar Menu -->
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+        with font-awesome or any other icon font library -->
+        <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-edit"></i>
+                <p>
+                    Bài Viết
+                    <i class="right fa fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/Admin/newPost" class="nav-link">
+                        <i class="fa fa-circle nav-icon text-success"></i>
+                        <p>Thêm bài viết mới</p>
+                    </a>
+                </li>
+                @if (User.IsInRole(1.ToString()))
+                {
+                    <li class="nav-item">
+                        <a href="/Admin/ListPost" class="nav-link">
+                            <i class="fa fa-circle nav-icon text-primary"></i>
+                            <p>Tất cả bài viết</p>
+                        </a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a href="/Admin/MyPost" class="nav-link">
+                        <i class="fa fa-circle nav-icon text-info"></i>
+                        <p>Bài viết của tôi</p>
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                        <a href="/Admin/ListSeries" class="nav-link">
+                            <i class="fa fa-circle nav-icon text-info"></i>
+                            <p>Quản lý Series</p>
+                        </a>
+                    </li>*@
+                <li class="nav-item">
+                    <a href="/Admin/ListTags" class="nav-link">
+                        <i class="fa fa-circle nav-icon text-primary"></i>
+                        <p>Quản lý Tag</p>
+                    </a>
+                </li>
+            </ul>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-user-circle"></i>
+                <p>
+                    Người dùng
+                    <i class="fa fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/User/ChangePass" class="nav-link">
+                        <i class="fa fa-circle nav-icon text-danger"></i>
+                        <p>Đổi mật khẩu</p>
+                    </a>
+                </li>
+                @{ if (User.IsInRole(1.ToString()))
+                    {
+                        <li class="nav-item">
+                            <a href="/User/UserManager" class="nav-link">
+                                <i class="fa fa-circle nav-icon text-success"></i>
+                                <p>Quản lý người dùng</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/User/createUser" class="nav-link">
+                                <i class="fa fa-circle nav-icon text-info"></i>
+                                <p>Tạo người dùng</p>
+                            </a>
+                        </li>
+                    } }
+
+
+            </ul>
+        </li>
+        <li class="nav-header" style="font-size:1.1rem">Công cụ</li>
+        <li class="nav-item">
+            <a href="/Admin/FileManager" target="_blank" class="nav-link">
+                <i class="nav-icon fa fa-circle text-info"></i>
+                <p>Quản Lý File</p>
+            </a>
+        </li>
+        @if (User.IsInRole(1.ToString()))
+        {
+            <li class="nav-item">
+                <a href="/Admin/InfoChange" class="nav-link">
+                    <i class="nav-icon fa fa-circle text-success"></i>
+                    <p>Thông tin website</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/Admin/HotPostManager" class="nav-link">
+                    <i class="nav-icon fa fa-circle text-success"></i>
+                    <p>Quản lý bài ghim</p>
+                </a>
+            </li>
+        }
+        <li class="nav-item">
+            <a href="/User/Logout" class="nav-link">
+                <i class="nav-icon ion-log-out text-danger"></i>
+                <p>Đăng xuất</p>
+            </a>
+        </li>
+    </ul>
+</nav>
