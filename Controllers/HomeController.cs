@@ -108,7 +108,7 @@ namespace NewsWebsite.Controllers
                                 slug = c.post_slug
                             }).ToPagedList(pageIndex, pageSize);
                         ViewBag.catname = tag.tag_name;
-                        return View(result);
+                        return View((PagedList<ListPostViewModel>)result);
                     }
                 }
                 return HttpNotFound();
@@ -142,7 +142,7 @@ namespace NewsWebsite.Controllers
                          tagsname = c.Tags.FirstOrDefault().tag_name,
                          slug = c.post_slug
                      }).ToPagedList(pageIndex, pageSize);
-                return View(post);
+                return View((PagedList<ListPostViewModel>)post);
             }
             return View("DynastyAll");
         }
@@ -459,7 +459,7 @@ namespace NewsWebsite.Controllers
                     }
                     break;
             }
-            return View(post);
+            return View((PagedList<ListPostViewModel>)post);
         }
     }
 }

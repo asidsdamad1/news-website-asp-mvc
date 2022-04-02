@@ -43,3 +43,4 @@ var changeStt = function (xthis) {
 //    var prev = $(this).prev();
 //    alert(prev.prop('checked'));
 //});
+    

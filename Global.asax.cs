@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -41,6 +43,15 @@ namespace NewsWebsite
                 Context.User = new GenericPrincipal(Context.User.Identity, roles);
         }
 
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["Languages"];
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value);
+            }
+        }
         
         
     }

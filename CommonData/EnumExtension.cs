@@ -17,5 +17,6 @@ namespace NewsWebsite.CommonData
                             .GetCustomAttribute<DisplayAttribute>()
                             .GetName();
         }
+
     }
 }

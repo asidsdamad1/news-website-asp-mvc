@@ -71,6 +71,7 @@ namespace NewsWebsite.ViewModel
         public string post_title { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "PostTeaser", ResourceType = typeof(StaticResources.Resources))]
         public string post_teaser { get; set; }
         [StringLength(500)]
         public  string AvatarImage { get; set; }

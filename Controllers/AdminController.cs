@@ -229,8 +229,10 @@ namespace NewsWebsite.Admin.Controllers
                     if (model.post_type.Equals(PostType.Slide))
                     {
                         return View("UploadImage", new UploadViewModel { id = post.post_id, title = post.post_title });
-
                     }
+
+                    post.post_slug += "-" + db.postRepository.FindIdByUsername(post.post_title);
+                    db.Commit();
                     return RedirectToAction("ListPost");
                 }
             }
@@ -416,15 +418,15 @@ namespace NewsWebsite.Admin.Controllers
             if ((Tbl_POST.User.username == User.Identity.Name) || User.IsInRole("1"))
             {
                 db.postRepository.DeletePost(Tbl_POST);
-                if (Tbl_POST.post_type == (int)PostType.Slide)
-                {
-                    string subPath = Server.MapPath("~/Files/images/slides/" + Tbl_POST.post_id);
-                    bool exists = System.IO.Directory.Exists(subPath);
-                    if (exists)
-                    {
-                        System.IO.Directory.Delete(subPath, true);
-                    }
-                }
+                // if (Tbl_POST.post_type == (int)PostType.Slide)
+                // {
+                //     string subPath = Server.MapPath("~/Files/images/slides/" + Tbl_POST.post_id);
+                //     bool exists = System.IO.Directory.Exists(subPath);
+                //     if (exists)
+                //     {
+                //         System.IO.Directory.Delete(subPath, true);
+                //     }
+                // }
                 //xóa ảnh đại diện cũ
                 bool exist = System.IO.File.Exists(Server.MapPath("~/Upload/images/" + Tbl_POST.avatar_image));
                 if (exist)
@@ -588,7 +590,7 @@ namespace NewsWebsite.Admin.Controllers
             Post post = db.postRepository.FindByID(id);
             string title = post.post_title;
             post.status = state;
-            string prefix = state ? "Đăng" : "Hủy đăng";
+            string prefix = state ?  "Đăng" : "Hủy đăng";
             db.Commit();
             return Json(new { Message = prefix + " \"" + title + "\" thành công" }, JsonRequestBehavior.AllowGet);
         }

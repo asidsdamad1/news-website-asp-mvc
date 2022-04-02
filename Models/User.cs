@@ -38,7 +38,7 @@ namespace NewsWebsite.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }
-
+        
         public virtual Role Role { get; set; }
     }
 }

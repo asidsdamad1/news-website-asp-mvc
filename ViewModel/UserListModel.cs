@@ -33,9 +33,12 @@ namespace NewsWebsite.ViewModel
 
         public bool status { get; set; }
         public int post_count { get; set; }
-        public virtual Role Role { get; set; }
         [StringLength(50)]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}",
+            ErrorMessage = "Email is not valid.")]
         public string email { get; set; }
+        public virtual Role Role { get; set; }
+       
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }
     }

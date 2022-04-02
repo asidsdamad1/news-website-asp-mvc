@@ -1,10 +1,12 @@
 ﻿@model PagedList.IPagedList<NewsWebsite.Models.Post>
 @using PagedList.Mvc;
 
-@{ ViewBag.Title = "Tất cả bài viết ";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+@{
+    ViewBag.Title = "Tất cả bài viết ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 
-<link href="~/Content/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<link href="~/Content/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
 
 <div style="margin-top:10px;"></div>
 
@@ -18,29 +20,29 @@
                         <div>
                             <label style="display:inline-block;font-weight:normal">Sắp xếp theo <b>@ViewBag.sortname</b> @ViewBag.Sort</label>
                         </div>
-                        @Html.ActionLink("Tiêu đề", "ListPost", new { sortOrder = "Title", CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
-                        @Html.ActionLink("Ngày đăng", "ListPost", new { sortOrder = "CreateDate", CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
-                        @Html.ActionLink("Lượt xem", "ListPost", new { sortOrder = "ViewCount", CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
+                        @Html.ActionLink("Tiêu đề", "ListPost", new { sortOrder = "Title", ViewBag.CurrentSort, ViewBag.titleStr }) |
+                        @Html.ActionLink("Ngày đăng", "ListPost", new { sortOrder = "CreateDate", ViewBag.CurrentSort, ViewBag.titleStr }) |
+                        @Html.ActionLink("Lượt xem", "ListPost", new { sortOrder = "ViewCount", ViewBag.CurrentSort, ViewBag.titleStr }) |
                     </div>
                     <div class="col-sm-12 col-md-4">
-                       
+
                         @using (Html.BeginForm("ListPost", "Admin", FormMethod.Get, new { enctype = "multipart/form-data" }))
                         {
-                    <label style="display:inline-block;font-weight:normal;">
-                        Tìm theo ngày đăng:
-                        <label style="display:flex;">
-                            @Html.TextBox("startDate", (ViewBag.startDate as DateTime?), new {  @placeholder = "Ngày bắt đầu", @class = "form-control", @style = "max-width: 150px" })
-                            @Html.TextBox("endDate", (ViewBag.endDate as DateTime?), new {  @placeholder = "Ngày kết thúc", @class = "form-control", @style = "max-width: 150px" })
+                            <label style="display:inline-block;font-weight:normal;">
+                                Tìm theo ngày đăng:
+                                <label style="display:flex;">
+                                    @Html.TextBox("startDate", ViewBag.startDate as DateTime?, new { placeholder = "Ngày bắt đầu", @class = "form-control", style = "max-width: 150px" })
+                                    @Html.TextBox("endDate", ViewBag.endDate as DateTime?, new { placeholder = "Ngày kết thúc", @class = "form-control", style = "max-width: 150px" })
 
-                        </label>
-                    </label>
-                                    <label style="display:inline-block;font-weight:normal;">
-                                        <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm" />
-                                    </label>}
+                                </label>
+                            </label>
+                            <label style="display:inline-block;font-weight:normal;">
+                                <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm"/>
+                            </label>}
 
                     </div>
                     <div class="col-md-1">
-                        <br />
+                        <br/>
                         <a href="/Admin/ListPost" style="font-size: 14px;font-weight: normal;" class="badge badge-danger">RESET bộ lọc</a>
                     </div>
                 </div>
@@ -55,8 +57,10 @@
                 {
                     <h3 class="card-title">
                         100 bài viết thứ @Model.PageNumber
-                    </h3> 
-                } else {
+                    </h3>
+                }
+                else
+                {
                     <h3 class="card-title">
                         100 bài viết đầu tiên
                     </h3>
@@ -67,56 +71,61 @@
             <div class="card-body">
                 <table id="lstPost" class="table table-bordered table-striped dt-responsive nowrap" style="width: 100%">
                     <thead>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Views</th>
-                            <th>Người tạo</th>
-                            <th>Hiển thị</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Views</th>
+                        <th>Người tạo</th>
+                        <th>Hiển thị</th>
+                        <th>Hành động</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-            <tr>
-                <td>
-                    <a href="/bai-viet/@item.post_slug">@item.post_title</a>
-                </td>
-                <td>
-                    @String.Format("{0:dd/MM/yyyy}", item.create_date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.view_count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.fullname)
-                </td>
-                <td>
-                    <label class="switch">
-                        <input onchange="changeStt(this)" type="checkbox" id="@item.user_id" @(item.status == true ? "checked" : "") class="success">
-                        <span class="slider"></span>
-                    </label>
-                </td>
-                <td>
-                    @{ if (User.Identity.Name == item.User.username || User.IsInRole("1"))
-                        {
-                            @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
-                            <a onclick="deleteConfirm(@item.post_id,'@item.post_title')" href="#" class="badge badge-danger">Xóa</a> } }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/bai-viet/@item.post_slug">@item.post_title</a>
+                            </td>
 
-                </td>
-            </tr>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.create_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.view_count)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.fullname)
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status ? "checked" : "") class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>
+                                @{
+                                    if (User.Identity.Name == item.User.username || User.IsInRole("1"))
+                                    {
+                                        @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
+                                        <a onclick="deleteConfirm(@item.post_id,'@item.post_title')" href="#" class="badge badge-danger">Xóa</a>
+                                    }
+                                }
+
+                            </td>
+                        </tr>
                     }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Lượt xem</th>
-                            <th>Người tạo</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Lượt xem</th>
+                        <th>Người tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
@@ -126,11 +135,14 @@
     </div>
     <!-- /.col -->
 </div>
-@{ if (Model.PageCount > 1)
+@{
+    if (Model.PageCount > 1)
     {
-<nav aria-label="Page navigation example" style="text-align:center">
-    @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page, sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], titleStr = ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new string[] { "pagination" }, LiElementClasses = new string[] { "page-item" } })
-</nav> } }
+        <nav aria-label="Page navigation example" style="text-align:center">
+            @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page, sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new[] { "pagination" }, LiElementClasses = new[] { "page-item" } })
+        </nav>
+    }
+}
 <!-- The delete Modal -->
 <div class="modal fade" id="deleteModal">
     <div class="modal-dialog">
@@ -156,25 +168,9 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="~/Scripts/bootstrap-notify.min.js"></script>
 <script src="~/Content/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="~/Content/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="~/Content/js/ListPost.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#startDate').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            format: "mm/dd/yyyy",
-            language: "tr"
-        });
-        $('#endDate').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            format: "mm/dd/yyyy",
-            language: "tr"
-        });
-    });
-</script>

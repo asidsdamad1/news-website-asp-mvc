@@ -1,11 +1,11 @@
-﻿@model PagedList.IPagedList<NewsWebsite.Models.Post>
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NewsWebsite.Models.Post>
 
 @{
     ViewBag.Title = "Bài viết của " + Model.FirstOrDefault().User.fullname;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<link href="~/Content/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<link href="~/Content/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet"/>
 
 <div style="margin-top:10px;"></div>
 
@@ -19,9 +19,9 @@
                         <div>
                             <label style="display:inline-block;font-weight:normal">Sắp xếp theo <b>@ViewBag.sortname</b> @ViewBag.Sort</label>
                         </div>
-                        @Html.ActionLink("Tiêu đề", "ListPost", new { sortOrder = "Title", id = Request.Params["id"], CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
-                        @Html.ActionLink("Ngày đăng", "ListPost", new { sortOrder = "CreateDate", id = Request.Params["id"], CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
-                        @Html.ActionLink("Lượt xem", "ListPost", new { sortOrder = "ViewCount", id = Request.Params["id"], CurrentSort = ViewBag.CurrentSort, titleStr = ViewBag.titleStr }) |
+                        @Html.ActionLink("Tiêu đề", "ListPost", new { sortOrder = "Title", id = Request.Params["id"], ViewBag.CurrentSort, ViewBag.titleStr }) |
+                        @Html.ActionLink("Ngày đăng", "ListPost", new { sortOrder = "CreateDate", id = Request.Params["id"], ViewBag.CurrentSort, ViewBag.titleStr }) |
+                        @Html.ActionLink("Lượt xem", "ListPost", new { sortOrder = "ViewCount", id = Request.Params["id"], ViewBag.CurrentSort, ViewBag.titleStr }) |
                     </div>
                     <div class="col-sm-12 col-md-4">
                         @using (Html.BeginForm("ListPost", "Admin", FormMethod.Get, new { enctype = "multipart/form-data" }))
@@ -31,13 +31,13 @@
                                 <input name="titleStr" type="search" value="@(ViewBag.titleStr as string)" class="form-control">
                             </label>
                             <label style="display:inline-block;font-weight:normal;">
-                                <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm" />
+                                <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm"/>
                             </label>
                         }
 
                     </div>
                     <div class="col-md-1">
-                        <br />
+                        <br/>
                         <a href="/Admin/ListPost" style="font-size: 14px;font-weight: normal;" class="badge badge-danger">RESET bộ lọc</a>
                     </div>
                 </div>
@@ -66,60 +66,59 @@
             <div class="card-body">
                 <table id="lstPost" class="table table-bordered table-striped">
                     <thead>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Views</th>
-                            <th>Người tạo</th>
-                            <th>Hiển thị</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Views</th>
+                        <th>Người tạo</th>
+                        <th>Hiển thị</th>
+                        <th>Hành động</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    <a href="/bai-viet/@item.post_slug">@item.post_title</a>
-                                </td>
-                                <td>
-                                    @String.Format("{0:dd/MM/yyyy}", item.create_date)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.view_count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.fullname)
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                        <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status == true ? "checked" : "") class="success">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    @{
-                                        if (User.Identity.Name == item.User.username || User.IsInRole("admin"))
-                                        {
-                                            @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
-                                            <a onclick="deleteConfirm(@item.post_id,'@item.post_title')" href="#" class="badge badge-danger">Xóa</a>
-
-                                        }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/bai-viet/@item.post_slug">@item.post_title</a>
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.create_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.view_count)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.fullname)
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status ? "checked" : "") class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>
+                                @{
+                                    if (User.Identity.Name == item.User.username || User.IsInRole("admin"))
+                                    {
+                                        @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
+                                        <a onclick="deleteConfirm(@item.post_id,'@item.post_title')" href="#" class="badge badge-danger">Xóa</a>
                                     }
+                                }
 
-                                </td>
-                            </tr>
-                        }
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Lượt xem</th>
-                            <th>Người tạo</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Lượt xem</th>
+                        <th>Người tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
@@ -133,7 +132,7 @@
     if (Model.PageCount > 1)
     {
         <nav aria-label="Page navigation example" style="text-align:center">
-            @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page, id = Request.Params["id"], sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], titleStr = ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new string[] { "pagination" }, LiElementClasses = new string[] { "page-item" } })
+            @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page, id = Request.Params["id"], sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new[] { "pagination" }, LiElementClasses = new[] { "page-item" } })
         </nav>
     }
 }
@@ -166,4 +165,3 @@
 <script src="~/Content/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="~/Content/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="~/Content/js/ListPost.js"></script>
-

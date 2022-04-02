@@ -1,4 +1,5 @@
-﻿    <!-- Sidebar user panel (optional) -->
+﻿@using StaticResources
+    <!-- Sidebar user panel (optional) -->
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="image">
         <img src="~/Content/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -18,11 +19,10 @@
         <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="/Admin/Index" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Dashboard
-
                 </p>
             </a>
         </li>
@@ -105,12 +105,7 @@
             </ul>
         </li>
         <li class="nav-header" style="font-size:1.1rem">Công cụ</li>
-        <li class="nav-item">
-            <a href="/Admin/FileManager" target="_blank" class="nav-link">
-                <i class="nav-icon fa fa-circle text-info"></i>
-                <p>Quản Lý File</p>
-            </a>
-        </li>
+        
         @if (User.IsInRole(1.ToString()))
         {
             <li class="nav-item">

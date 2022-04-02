@@ -34,6 +34,7 @@ namespace NewsWebsite.Admin.Controllers
                     username = m.username,
                     fullname = m.fullname,
                     role_id = m.role_id,
+                    email = m.email,
                     status = m.status,
                     Posts = m.Posts,
                     role_name = m.Role.role_name,
@@ -50,6 +51,7 @@ namespace NewsWebsite.Admin.Controllers
                     username = m.username,
                     fullname = m.fullname,
                     role_id = m.role_id,
+                    email = m.email,
                     status  = m.status,
                     Posts =  m.Posts,
                     role_name = m.Role.role_name,
@@ -178,7 +180,7 @@ namespace NewsWebsite.Admin.Controllers
         {
             string prefix = state ? "Đã bỏ cấm" : "Đã cấm";
             User u = UnitOfWork.userRepository.FindByID(id);
-            if (u.username != "admin")
+            if (u.role_id != 1)
             {
                 u.status = state;
                 UnitOfWork.Commit();
@@ -234,6 +236,7 @@ namespace NewsWebsite.Admin.Controllers
                 entity.username = user.username;
                 entity.email = user.email;
                 entity.role_id = user.role_id;
+                entity.fullname = user.fullname;
                 
                 UnitOfWork.userRepository.Update(entity);
                 UnitOfWork.Commit();
