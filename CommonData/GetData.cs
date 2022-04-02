@@ -115,6 +115,15 @@ namespace NewsWebsite.CommonData
                     TagName = m.tag_name
                 }).ToList();
         }
+        public IEnumerable<ViewModel.SeriesPostViewModel> GetListSeries()
+        {
+            return db.seriesRepository.AllSeries().Select(
+                m => new ViewModel.SeriesPostViewModel
+                {
+                    SerieID = m.series_id,
+                    SerieName = m.seriesName
+                }).ToList();
+        }
         public IEnumerable<EnumShowList> GetEnumShowList()
         {
             List<ViewModel.Dynasty> dynasties = GetEnumList<ViewModel.Dynasty>();

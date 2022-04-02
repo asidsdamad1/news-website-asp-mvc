@@ -18,16 +18,10 @@
             </a>
         }
     </div>
-    @*<div class="mtb-50 mb-md-0">
-            <h4 class="p-title"><b>CẬP NHẬT THÔNG TIN</b></h4>
-            <p class="mb-20">
-                Đăng ký để nhận những thông tin, cập nhật và những bài viết mới của chúng tôi
-            </p>
-            <form class="nwsltr-primary-1">
-                <input type="text" placeholder="Your email" />
-                <button type="submit"><i class="fa fa-send"></i></button>
-            </form>
-        </div>*@
+    <div class="mtb-50 mb-md-0">
+        
+        @Html.Action("SendMail", "Email")
+    </div>
     <div class="mtb-50 mb-md-0">
         <h4 class="p-title"><b>DANH MỤC</b></h4>
         <div class="widget-content list-label-widget-content mt-1">

@@ -29,6 +29,17 @@ namespace NewsWebsite
                 url: "danh-muc/",
                 defaults: new { controller = "Home", action = "Category" }
             );
+            //theo tag
+            routes.MapRoute(
+                name: "Serie",
+                url: "series/{title}-{id}",
+                defaults: new { controller = "Home", action = "Series", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Serie2",
+                url: "series/",
+                defaults: new { controller = "Home", action = "Series" }
+            );
             routes.MapRoute(
                 name: "Timkiem",
                 url: "tim-kiem/",

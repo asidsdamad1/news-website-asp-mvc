@@ -152,14 +152,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonData\CommonConstants.cs" />
     <Compile Include="CommonData\EnumExtension.cs" />
     <Compile Include="CommonData\GetData.cs" />
     <Compile Include="CommonData\PostData.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CommonData\CommonFunction.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Users12Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,7 +171,6 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Series.cs" />
     <Compile Include="Models\StickyPost.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,9 +178,20 @@
     <Compile Include="Repository\InfoRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\SeriesRepository.cs" />
     <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Resources\Languages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Languages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Languagess-en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Languagess-en.resx</DependentUpon>
+    </Compile>
     <Compile Include="test.cs" />
     <Compile Include="ViewModel\ChangePassViewModel.cs" />
     <Compile Include="ViewModel\InfoViewModel.cs" />
@@ -188,6 +200,8 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NewPostViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModel\SendMailModel.cs" />
+    <Compile Include="ViewModel\SeriesPostViewModel.cs" />
     <Compile Include="ViewModel\UploadViewModel.cs" />
     <Compile Include="ViewModel\UserListModel.cs" />
     <Compile Include="ViewModel\UserListViewModel.cs" />
@@ -3374,6 +3388,12 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Upload\images\dang-test-bai-viet--90.png" />
     <Content Include="Upload\images\eeeeeeeeewwww-27.jpg" />
+    <Content Include="Views\Admin\ListSeries.cshtml" />
+    <Content Include="Views\Admin\SerieDetail.cshtml" />
+    <Content Include="Views\Base\Index.cshtml" />
+    <Content Include="Views\Email\SendMail.cshtml" />
+    <Content Include="Views\Home\Series.cshtml" />
+    <Content Include="Views\Home\SeriesAll.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\createUser.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
@@ -3459,10 +3479,13 @@
     <Content Include="Views\Shared\Sidebar.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\Admin\UserPost.cshtml" />
+    <Content Include="Views\Shared\Navbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\ckfinder\bin\Release\" />
+    <Folder Include="Models\Entity" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -3479,6 +3502,22 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="StaticResources\StaticResources.csproj">
+      <Project>{948e19d2-3899-4262-afd5-9452f4a3033a}</Project>
+      <Name>StaticResources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Languages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Languages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Languagess-en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Languagess-en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

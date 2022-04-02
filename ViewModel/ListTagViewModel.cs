@@ -14,6 +14,5 @@ namespace NewsWebsite.ViewModel
         [Display(Name = "TagName", ResourceType= typeof(StaticResources.Resources))]
         public string TagName { get; set; }
         public int PostCount { get; set; }
-        public string language { get; set; }
     }
 }

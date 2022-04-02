@@ -106,8 +106,19 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="/danh-muc/du-an-project-12">PROJECT</a>
+            <li class="drop-down">
+                <a href="/series/">SERIES<i class="fa fa-caret-down"></i></a>
+                <ul class="drop-down-menu drop-down-inner">
+                    @foreach (var i in data.GetListSeries().Take(6))
+                    {
+                        <li>
+                            <a href="/series/@i.SerieName.ToLower().GenerateSlug()-@i.SerieID">@i.SerieName</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/series/">XEM TẤT CẢ</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="/tim-kiem">TÌM NÂNG CAO</a>

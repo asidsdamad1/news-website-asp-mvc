@@ -117,6 +117,48 @@ namespace NewsWebsite.Controllers
             return View("CategoryAll");
 
         }
+        public ActionResult Series(int? id, int? page)
+        {
+            if (id != null)
+            {
+                int pageSize = 15;
+                int pageIndex = 1;
+                //IPagedList<Tbl_POST> post = null;
+                pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+                Series series = db.seriesRepository.FindByID(id.Value);
+                if (series != null)
+                {
+                    using (NewsDbContext conn = db.Context)
+                    {
+                        var result = (
+                            // instance from context
+                            from a in conn.Series
+                            // instance from navigation property
+                            from b in a.Posts
+                            //join to bring useful data
+                            join c in conn.Posts on b.post_id equals c.post_id
+                            where a.series_id == id && b.status == true
+                            orderby b.create_date descending
+                            select new ListPostViewModel
+                            {
+                                post_id = c.post_id,
+                                post_title = c.post_title,
+                                post_teaser = c.post_teaser,
+                                ViewCount = c.view_count,
+                                AvatarImage = c.avatar_image,
+                                create_date = c.create_date,
+                                slug = c.post_slug
+                            }).ToPagedList(pageIndex, pageSize);
+                        ViewBag.catname = series.seriesName;
+                        return View((PagedList<ListPostViewModel>)result);
+                    }
+                }
+                return HttpNotFound();
+            }
+
+            return View("CategoryAll");
+
+        }
         public ActionResult Dynasty(int? dynasty, int? page)
         {
             if(dynasty != null)

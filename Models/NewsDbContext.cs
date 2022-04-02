@@ -17,7 +17,6 @@ namespace NewsWebsite.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Series> Series { get; set; }
         public virtual DbSet<StickyPost> StickyPosts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -32,7 +31,7 @@ namespace NewsWebsite.Models
                 .HasMany(e => e.Tags)
                 .WithMany(e => e.Posts)
                 .Map(m => m.ToTable("Tbl_PostTags").MapLeftKey("post_id").MapRightKey("tag_id"));
-
+            
             modelBuilder.Entity<Post>()
                 .HasMany(e => e.Series)
                 .WithMany(e => e.Posts)

@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/Content/web/styles.css" rel="stylesheet"/>
+@if (ViewBag.msg != null)
+{
+    <script>alert('@ViewBag.msg')</script>
+    
+}
+@using (Html.BeginForm())
+{
+    <h4 class="p-title">
+        <b>CẬP NHẬT THÔNG TIN</b>
+    </h4>
+    <p class="mb-20">
+        Đăng ký để nhận những thông tin, cập nhật và những bài viết mới của chúng tôi
+    </p>
+    <div class="nwsltr-primary-1">
+        <input type="text" name="useremail" placeholder="Your email"/>
+        <button type="submit">
+            <i class="fa fa-send"></i>
+        </button>
+    </div>
+}

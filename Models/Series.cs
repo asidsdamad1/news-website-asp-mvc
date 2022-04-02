@@ -15,7 +15,6 @@ namespace NewsWebsite.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int series_id { get; set; }
 
         [Required]
