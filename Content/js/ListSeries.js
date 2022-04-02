@@ -1,5 +1,6 @@
 ﻿var newModal = $('#newModal');
 $(function () {
+    $.noConflict();
     $("#lstPost").DataTable();
 });
 $('#addBtn').click(function () {

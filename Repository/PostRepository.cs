@@ -18,6 +18,7 @@ namespace NewsWebsite.Repository
         {
             entity.Posts.Add(post);
         }
+        
         public IQueryable<Post> AllPosts()
         {
             IQueryable<Post> query = entity.Posts;
@@ -28,11 +29,16 @@ namespace NewsWebsite.Repository
         {
             //entity.Tbl_Tags.Remove(post.Tbl_Tags);
             entity.Posts.Remove(post);
-
         }
         public void UpdatePost(Post post)
         {
             entity.Entry(post).State = EntityState.Modified;
+        }
+
+        public int FindIdByUsername(string title)
+        {
+            Post p = entity.Posts.Where(m => m.post_title == title).FirstOrDefault();
+            return p.post_id;
         }
         public Post FindByID(int id)
         {

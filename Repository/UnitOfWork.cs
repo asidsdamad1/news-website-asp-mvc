@@ -13,10 +13,11 @@ namespace NewsWebsite.Repository
         private UserRepository _userRepository;
         private InfoRepository _infoRepository;
         private PostRepository _postRepository;
-        //private SeriesRepository _seriesRepository;
+        private SeriesRepository _seriesRepository;
         private TagRepository _tagRepository;
         private RoleRepository _roleRepository;
         private HotPostRepository _hotPostRepository;
+
         public UnitOfWork(NewsDbContext _context)
         {
             this.context = _context;
@@ -64,18 +65,18 @@ namespace NewsWebsite.Repository
                 return _roleRepository;
             }
         }
-        //public SeriesRepository seriesRepository
-        //{
-        //    get
-        //    {
-        //        if (_seriesRepository == null)
-        //        {
-        //            _seriesRepository = new SeriesRepository(context);
+        public SeriesRepository seriesRepository
+        {
+            get
+            {
+                if (_seriesRepository == null)
+                {
+                    _seriesRepository = new SeriesRepository(context);
 
-        //        }
-        //        return _seriesRepository;
-        //    }
-        //}
+                }
+                return _seriesRepository;
+            }
+        }
         public PostRepository postRepository
         {
             get
@@ -120,4 +121,6 @@ namespace NewsWebsite.Repository
             context.SaveChanges();
         }
     }
+
+   
 }

@@ -228,7 +228,7 @@ namespace NewsWebsite.Admin.Controllers
                     db.Commit();
                     if (model.post_type.Equals(PostType.Slide))
                     {
-                        return View("UploadImage", new UploadViewModel { id = post.post_id, title = post.post_title });
+                        // return View("UploadImage", new UploadViewModel { id = post.post_id, title = post.post_title });
                     }
 
                     post.post_slug += "-" + db.postRepository.FindIdByUsername(post.post_title);
@@ -392,7 +392,7 @@ namespace NewsWebsite.Admin.Controllers
                     db.Commit();
                     if (model.post_type.Equals(PostType.Slide))
                     {
-                        return View("UploadImage", new UploadViewModel { id = pOST.post_id, title = pOST.post_title });
+                        // return View("UploadImage", new UploadViewModel { id = pOST.post_id, title = pOST.post_title });
                     }
 
                 }
@@ -824,7 +824,206 @@ namespace NewsWebsite.Admin.Controllers
             }
             else return RedirectToAction("UserManager", "User");
         }
+        
+         public ActionResult ListSeries(string name, int? page)
+        {
+            int pageSize = 100;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<Series> sr = null;
+            if (!String.IsNullOrWhiteSpace(name))
+            {
+                ViewBag.name = name;
+                sr = db.seriesRepository.AllSeries().Where(m => m.seriesName.Contains(name)).OrderBy(x => x.series_id).ToPagedList(pageIndex, pageSize);
+            }
+            else
+            {
+                sr = db.seriesRepository.AllSeries().OrderBy(x => x.series_id).ToPagedList(pageIndex, pageSize);
+            }
+            return View(sr);
+        }
+        public ActionResult SerieDetail(int id, string name)
+        {
+            Series sr = db.seriesRepository.FindByID(id);
+            if (sr != null)
+            {
 
+                if (!String.IsNullOrWhiteSpace(name))
+                {
+                    using (NewsDbContext conn = new NewsDbContext())
+                    {
+                        var result = (
+                                // instance from context
+                            from a in conn.Series
+                                    // instance from navigation property
+                            from b in a.Posts
+                                    //join to bring useful data
+                            join c in conn.Posts on b.post_id equals c.post_id
+                                //where a.seriesID == c.Tbl_Series.s
+                            where a.series_id.Equals(id)
+                            where b.post_title.Contains(name)
+                            select new ViewModel.SeriesPost
+                                {
+                                    post_id = b.post_id,
+                                    post_title = b.post_title,
+                                    status = b.status,
+                                    ViewCount = b.view_count,
+                                    userid = b.user_id,
+                                    create_date = b.create_date,
+                                userfullname = b.User.fullname,
+                                username = b.User.username,
+                                slug = b.post_slug
+                            }).ToList();
+                        SeriesPostViewModel postViewModel = new SeriesPostViewModel
+                        {
+                            SerieID = sr.series_id,
+                            SerieName = sr.seriesName,
+                            ListPost = result,
+                        };
+                        return View(postViewModel);
+
+                    }
+                }
+                else
+                {
+                    ViewBag.name = name;
+                    using (NewsDbContext conn = new NewsDbContext())
+                    {
+                        var result = (
+                            // instance from context
+                            from a in conn.Series
+                                // instance from navigation property
+                            from b in a.Posts
+                                //join to bring useful data
+                            join c in conn.Posts on b.post_id equals c.post_id
+                            //where a.seriesID == c.Tbl_Series.s
+                            where a.series_id.Equals(id)
+                            select new ViewModel.SeriesPost
+                            {
+                                post_id = b.post_id,
+                                post_title = b.post_title,
+                                status = b.status,
+                                ViewCount = b.view_count,
+                                userid = b.view_count,
+                                create_date = b.create_date,
+                                userfullname = b.User.fullname,
+                                username = b.User.username,
+
+                            }).ToList();
+                        SeriesPostViewModel postViewModel = new SeriesPostViewModel
+                        {
+                            SerieID = sr.series_id,
+                            SerieName = sr.seriesName,
+                            ListPost = result,
+                        };
+                        return View(postViewModel);
+
+                    }
+                }
+                //return View(postlist);
+            }
+            return RedirectToAction("ListSeries");
+
+        } 
+        /// <summary>
+        /// Thêm series mới
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public JsonResult addSerie(string name)
+        {
+            if(String.IsNullOrWhiteSpace(name))
+            {
+                Response.StatusCode = 500;
+                return Json(new { Message = "Không được để trống tiêu đề series" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                db.seriesRepository.AddSeries(new Series
+                {
+                    seriesName = name,
+                });
+                db.Commit();
+                return Json(new { Message = "Tạo series" + " \"" + name + "\" thành công" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult editSerie(int id,string name)
+        {
+            if (string.IsNullOrWhiteSpace(name) || id == null)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Message = "Không được để trống tiêu đề series hoặc id" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                Series series = db.seriesRepository.FindByID(id);
+                series.seriesName = name;
+                db.Commit();
+                return Json(new { Message = "Edit series" + " \"" + series.seriesName + "\" thành công" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult DeleteSeries(int id)
+        {
+            Series cate = db.seriesRepository.FindByID(id);
+            string title = cate.seriesName;
+            db.seriesRepository.Delete(cate);
+            db.Commit();
+            return Json(new { reload = true, Message = "Xóa '" + title + "' thành công" }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult AddToSerie(int? id,int? seriid)
+        {
+            if (id == null || seriid == null)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Message = "Lỗi" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                using (NewsDbContext conn = new NewsDbContext())
+                {
+                    Series sr = conn.Series.Find(seriid);
+                    Post post = conn.Posts.Find(id);
+                    foreach(var x in sr.Posts)
+                    {
+                        if(x.post_id.Equals(id))
+                        {
+                            Response.StatusCode = 500;
+                            return Json(new { Message = "Trùng lặp bài viết" }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    sr.Posts.Add(post);
+                    post.Series.Add(sr);
+                    conn.SaveChanges();
+                }
+                    return Json(new { Message = "Thêm thành công" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult RemoveFromSerie(int? id,int? seriid)
+        {
+            if (id == null || seriid == null)
+            {
+                Response.StatusCode = 500;
+                return Json(new { Message = "Lỗi" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                using (NewsDbContext conn = new NewsDbContext())
+                {
+                    Series sr = conn.Series.Find(seriid);
+                    Post post = conn.Posts.Find(id);
+                    sr.Posts.Remove(post);
+                    post.Series.Remove(sr);
+                    conn.SaveChanges();
+                }
+                return Json(new { Message = "Remove thành công" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         [Authorize(Roles = "1")]
         public ActionResult InfoChange()
         {
