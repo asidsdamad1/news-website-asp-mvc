@@ -110,10 +110,12 @@
             
                         </ul>
                     </li>
-                    <li class="nav-header" style="font-size:1.1rem">Công cụ</li>
+                    
                     
                     @if (User.IsInRole(1.ToString()))
                     {
+                        <li class="nav-header" style="font-size:1.1rem">Công cụ</li>
+
                         <li class="nav-item">
                             <a href="/Admin/InfoChange" class="nav-link">
                                 <i class="nav-icon fa fa-circle text-success"></i>
