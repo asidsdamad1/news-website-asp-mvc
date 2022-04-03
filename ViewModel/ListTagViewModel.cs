@@ -11,7 +11,7 @@ namespace NewsWebsite.ViewModel
         public int TagID { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "TagName", ResourceType= typeof(StaticResources.Resources))]
+        [Display(Name = "TagName")]
         public string TagName { get; set; }
         public int PostCount { get; set; }
     }

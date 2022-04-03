@@ -47,16 +47,9 @@ namespace NewsWebsite.ViewModel
         TrongNuoc = 0,
         [Display(Name = "Quốc tế")]
         QuocTe = 1,
-        [Display(Name = "Châu Âu")]
-        ChauAU = 2,
-        [Display(Name = "Châu Á")]
-        ChauA = 3,
-        [Display(Name = "Châu Phi")]
-        ChauPhi = 4,
-        [Display(Name = "Châu Mỹ")]
-        ChauMy = 5,
+        
         [Display(Name = "Khác")]
-        Khac = 6,
+        Khac = 2,
     }
     public class NewPostViewModel
     {
@@ -71,7 +64,7 @@ namespace NewsWebsite.ViewModel
         public string post_title { get; set; }
 
         [StringLength(500)]
-        [Display(Name = "PostTeaser", ResourceType = typeof(StaticResources.Resources))]
+        [Display(Name = "PostTeaser")]
         public string post_teaser { get; set; }
         [StringLength(500)]
         public  string AvatarImage { get; set; }

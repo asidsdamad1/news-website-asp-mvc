@@ -156,7 +156,7 @@ namespace NewsWebsite.Controllers
                 return HttpNotFound();
             }
 
-            return View("CategoryAll");
+            return View("SeriesAll");
 
         }
         public ActionResult Dynasty(int? dynasty, int? page)
