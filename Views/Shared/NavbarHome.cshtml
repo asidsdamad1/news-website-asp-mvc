@@ -1,56 +1,31 @@
-﻿@using NewsWebsite.CommonData
-@using SlugGenerator
-@{
-        var data = new GetData();
-    } 
-<ul class="main-menu2 link" id="main-menu">
-            <li>
-                <a href="/">HOME</a>
-            </li>
-            <li class="drop-down">
-                <a href="/khu-vuc">KHU VỰC<i class="fa fa-caret-down"></i></a>
-                <ul class="drop-down-menu drop-down-inner">
-                    @foreach (var i in data.GetEnumShowList().Take(6))
-                    {
-                        <li>
-                            <a href="/khu-vuc/@i.slug-@i.value">@i.showname</a>
-                        </li>
-                    }
-                    <li>
-                        <a href="/khu-vuc/">XEM TẤT CẢ</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="drop-down">
-                <a href="/danh-muc/">DANH MỤC<i class="fa fa-caret-down"></i></a>
-                <ul class="drop-down-menu drop-down-inner">
-                    @foreach (var i in data.GetListTags().Take(6))
-                    {
-                        <li>
-                            <a href="/danh-muc/@SlugGenerator.GenerateSlug(i.TagName.ToLower())-@i.TagID">@i.TagName</a>
-                        </li>
-                    }
-                    <li>
-                        <a href="/danh-muc/">XEM TẤT CẢ</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="drop-down">
-                <a href="/series/">SERIES<i class="fa fa-caret-down"></i></a>
-                <ul class="drop-down-menu drop-down-inner">
-                    @foreach (var i in data.GetListSeries().Take(6))
-                    {
-                        <li>
-                            <a href="/series/@i.SerieName.ToLower().GenerateSlug()-@i.SerieID">@i.SerieName</a>
-                        </li>
-                    }
-                    <li>
-                        <a href="/series/">XEM TẤT CẢ</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="/tim-kiem">TÌM NÂNG CAO</a>
-            </li>
+﻿<div class="container">
+    <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
 
+        <ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10 toplink">
+            <li>
+                <a class="pl-0 pl-sm-10" href="#">Về chúng tôi</a>
+            </li>
+            <li>
+                <a href="#">Liên hệ</a> 
+            </li>
+            @if (Request.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Logout", "Logout", "User", null, new { @class = "nav-link" })</li>
+            }
         </ul>
+        <div class="d-inline-block float-right mt-2 mr-4">
+            <form action="/tim-kiem" method="get">
+                <input type="text" name="title" placeholder="Tìm kiếm" class="mr-2 txtSearch"/>
+                <button class="text-white" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+        @*<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
+                            <li><a class="pl-0 pl-sm-10" href="#"><i class="fa fa-facebook-official"></i></a></li>
+
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>*@
+    </div>
+</div>
