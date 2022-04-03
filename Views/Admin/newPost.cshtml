@@ -129,17 +129,28 @@
                     @Html.ValidationMessageFor(model => model.meta_tag, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
-                @Html.Label("Trạng thái bài viết:", new { @class = "control-label col-md-4" })
-                <div class="col-md-10">
-                    <label class="switch">
-                        <input type="checkbox" id="Status" name="Status" value="@(Model.Status ? "true" : "false")" @(Model.Status ? "checked" : "") class="success">
-                        <span class="slider"></span>
-                    </label>
+            @{
+                if (User.IsInRole("1"))
+                {
+                    <div class="form-group">
 
-                    <p id="showstatus" style="display:inline"> Đăng ngay</p>
-                </div>
-            </div>
+                        @Html.Label("Trạng thái bài viết:", new { @class = "control-label col-md-4" })
+                        <div class="col-md-10">
+                            <label class="switch">
+                                <input type="checkbox" id="Status" name="Status" value="@(Model.Status ? "true" : "false")" @(Model.Status ? "checked" : "") class="success">
+                                <span class="slider"></span>
+                            </label>
+
+                            <p id="showstatus" style="display:inline"> Đăng ngay</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    Model.Status = false;
+                }
+            }
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Create" class="btn btn-info"/>

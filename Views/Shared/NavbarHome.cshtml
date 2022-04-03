@@ -1,0 +1,56 @@
+﻿@using NewsWebsite.CommonData
+@using SlugGenerator
+@{
+        var data = new GetData();
+    } 
+<ul class="main-menu2 link" id="main-menu">
+            <li>
+                <a href="/">HOME</a>
+            </li>
+            <li class="drop-down">
+                <a href="/khu-vuc">KHU VỰC<i class="fa fa-caret-down"></i></a>
+                <ul class="drop-down-menu drop-down-inner">
+                    @foreach (var i in data.GetEnumShowList().Take(6))
+                    {
+                        <li>
+                            <a href="/khu-vuc/@i.slug-@i.value">@i.showname</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/khu-vuc/">XEM TẤT CẢ</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="drop-down">
+                <a href="/danh-muc/">DANH MỤC<i class="fa fa-caret-down"></i></a>
+                <ul class="drop-down-menu drop-down-inner">
+                    @foreach (var i in data.GetListTags().Take(6))
+                    {
+                        <li>
+                            <a href="/danh-muc/@SlugGenerator.GenerateSlug(i.TagName.ToLower())-@i.TagID">@i.TagName</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/danh-muc/">XEM TẤT CẢ</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="drop-down">
+                <a href="/series/">SERIES<i class="fa fa-caret-down"></i></a>
+                <ul class="drop-down-menu drop-down-inner">
+                    @foreach (var i in data.GetListSeries().Take(6))
+                    {
+                        <li>
+                            <a href="/series/@i.SerieName.ToLower().GenerateSlug()-@i.SerieID">@i.SerieName</a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/series/">XEM TẤT CẢ</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/tim-kiem">TÌM NÂNG CAO</a>
+            </li>
+
+        </ul>

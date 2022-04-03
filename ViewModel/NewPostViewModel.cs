@@ -20,7 +20,7 @@ namespace NewsWebsite.ViewModel
         }
     }
 
-    public  enum PostType: int
+    public enum PostType: int
     {
         [Display(Name = "Bài viết bình thường")]
         Normal = 1,
@@ -47,7 +47,6 @@ namespace NewsWebsite.ViewModel
         TrongNuoc = 0,
         [Display(Name = "Quốc tế")]
         QuocTe = 1,
-        
         [Display(Name = "Khác")]
         Khac = 2,
     }

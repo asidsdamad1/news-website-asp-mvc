@@ -10,7 +10,10 @@ namespace NewsWebsite
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/myscript").Include(
+                "~/Content/web/tether.min.js",
+                "~/Content/web/scripts.js",
+                "~/Content/photoswipe/init.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
          "~/Scripts/jquery-ui.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -27,6 +30,11 @@ namespace NewsWebsite
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/mycss").Include(
+                "~/Content/admin/plugins/fontawesome-free/css/all.min.css",
+                "~/Content/admin/dist/css/adminlte.min.css",
+                "~/Content/Site.css"));
+           
         }
     }
 }

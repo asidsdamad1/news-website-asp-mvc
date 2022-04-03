@@ -1,5 +1,5 @@
-﻿@model PagedList.IPagedList<NewsWebsite.Models.Series>
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<NewsWebsite.Models.Series>
 
 @{
     ViewBag.Title = "Tất cả series bài viết";
@@ -22,9 +22,8 @@
                             <input name="name" type="search" value="@(ViewBag.name as string)" class="form-control">
                         </label>
                         <label style="display:inline-block;font-weight:normal;">
-                            <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm" />
+                            <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm"/>
                         </label>
-
                     }
                     <div class="form-group mt-md-4 ml-md-2">
                         <button class="btn btn-info" id="addBtn">Thêm mới series</button>
@@ -39,9 +38,9 @@
             <div class="card-header">
                 @if (Model.PageNumber > 1)
                 {
-                <h3 class="card-title">
-                    100 series thứ @Model.PageNumber
-                </h3>
+                    <h3 class="card-title">
+                        100 series thứ @Model.PageNumber
+                    </h3>
                 }
                 else
                 {
@@ -55,42 +54,42 @@
             <div class="card-body">
                 <table id="lstPost" class="table table-bordered table-striped">
                     <thead>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Tổng Bài viết</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Tổng Bài viết</th>
+                        <th>Hành động</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.ActionLink(item.seriesName, "SerieDetail", new { id = item.series_id })
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Posts.Count)
-                                </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.seriesName, "SerieDetail", new { id = item.series_id })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Posts.Count)
+                            </td>
 
-                                <td>
-                                    @{
-                                        @Html.ActionLink("Danh sách bài viết", "SerieDetail", new { id = item.series_id }, new { @class = "badge badge-primary" })
-                                        <a onclick="deleteConfirm(@item.series_id,'@item.seriesName')" href="#" class="badge badge-danger">Xóa</a>
-                                        <a onclick="EditSr(@item.series_id,'@item.seriesName')" href="#" class="badge badge-danger">Sửa tên</a>
+                            <td>
+                                @{
+                                    @Html.ActionLink("Danh sách bài viết", "SerieDetail", new { id = item.series_id }, new { @class = "badge badge-primary" })
+                                    <a onclick="deleteConfirm(@item.series_id,'@item.seriesName')" href="#" class="badge badge-danger">Xóa</a>
+                                    <a onclick="EditSr(@item.series_id,'@item.seriesName')" href="#" class="badge badge-danger">Sửa tên</a>
 
 
-                                    }
+                                }
 
-                                </td>
-                            </tr>
-                        }
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Số bài viết</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Số bài viết</th>
+                        <th>Hành động</th>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
@@ -104,7 +103,7 @@
     if (Model.PageCount > 1)
     {
         <nav aria-label="Page navigation example" style="text-align:center">
-            @Html.PagedListPager(Model, page => Url.Action("ListSeries", new { page, sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], titleStr = ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new string[] { "pagination" }, LiElementClasses = new string[] { "page-item" } })
+            @Html.PagedListPager(Model, page => Url.Action("ListSeries", new { page, sortOrder = Request.Params["sortOrder"], CurrentSort = Request.Params["CurrentSort"], ViewBag.titleStr }), new PagedListRenderOptions { UlElementClasses = new[] { "pagination" }, LiElementClasses = new[] { "page-item" } })
         </nav>
     }
 }
@@ -146,7 +145,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <input type="text" id="srname" placeholder="Nhập tên series" name="seriesname" class="form-control" />
+                <input type="text" id="srname" placeholder="Nhập tên series" name="seriesname" class="form-control"/>
             </div>
 
             <!-- Modal footer -->
@@ -171,7 +170,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <input type="text" id="srname2" placeholder="Nhập tên series" name="seriesname2" class="form-control" />
+                <input type="text" id="srname2" placeholder="Nhập tên series" name="seriesname2" class="form-control"/>
             </div>
 
             <!-- Modal footer -->

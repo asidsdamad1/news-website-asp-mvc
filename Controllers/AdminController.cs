@@ -193,7 +193,7 @@ namespace NewsWebsite.Admin.Controllers
                 {
                     isSaveSuccessfully = false;
                 }
-                if (isSaveSuccessfully == true)
+                if (isSaveSuccessfully)
                 {
                     User user = db.userRepository.FindByUsername(User.Identity.Name);
                     Post post = new Post
@@ -250,6 +250,7 @@ namespace NewsWebsite.Admin.Controllers
             if (post.User.username == User.Identity.Name || User.IsInRole("1"))
             {
                 Dynasty dn;
+                //dynasty - khu vực 
                 Enum.TryParse(post.dynasty, out dn);
                 Rated rated;
                 Enum.TryParse(post.rated.ToString(), out rated);

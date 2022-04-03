@@ -71,14 +71,13 @@ namespace NewsWebsite.Admin.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string ReturnUrl)
         {
-
             if (ModelState.IsValid)
             {
                 User user = UnitOfWork.userRepository.FindByUsername(model.Username);
                 if (user != null)
                 {
 
-                    if (user.password == CommonData.CommonFunction.CalculateMD5Hash(model.Password) && user.status == true)
+                    if (user.password == CommonData.CommonFunction.CalculateMD5Hash(model.Password) && user.status)
                     {
                         setCookie(user.username, model.RememberMe, user.role_id.ToString());
                         if (ReturnUrl != null)
@@ -222,14 +221,6 @@ namespace NewsWebsite.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(UserListModel user)
         {
-            //User userUpdate = new Models.User();
-            //userUpdate.AddRange(model.post_tag.Where(m => m.Selected)
-            //    .Select(m => new Tag { tag_id = int.Parse(m.Value), tag_name = m.Text })
-            //    );
-            //List<Tag> untaglist = new List<Tag>();
-            //untaglist.AddRange(model.post_tag.Where(m => m.Selected == false)
-            //    .Select(m => new Tag { tag_id = int.Parse(m.Value), tag_name = m.Text })
-            //    );
             if (ModelState.IsValid)
             {
                 User entity = UnitOfWork.userRepository.FindByUsername(user.username);

@@ -21,9 +21,8 @@
                             <input name="name" type="search" value="@(ViewBag.name as string)" class="form-control">
                         </label>
                         <label style="display:inline-block;font-weight:normal;">
-                            <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm" />
+                            <input style="margin-top:-4.4px" class="btn btn-info" type="submit" value="Tìm kiếm"/>
                         </label>
-
                     }
                     <div class="form-group mt-md-4 ml-md-2">
                         <button class="btn btn-info" id="addBtn">Thêm bài viết vào serie này</button>
@@ -45,60 +44,59 @@
             <div class="card-body">
                 <table id="lstPost" class="table table-bordered table-striped">
                     <thead>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Views</th>
-                            <th>Người tạo</th>
-                            <th>Hiển thị</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Views</th>
+                        <th>Người tạo</th>
+                        <th>Hiển thị</th>
+                        <th>Hành động</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.ListPost)
-                        {
-                            <tr>
-                                <td>
-                                    <a href="/bai-viet/@item.slug">@item.post_title</a>
-                                </td>
-                                <td>
-                                    @String.Format("{0:dd/MM/yyyy}", item.create_date)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ViewCount)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.userfullname)
-                                </td>
-                                <td>
-                                    <label class="switch">
-                                        <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status == true ? "checked" : "") class="success">
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    @{
-                                        if (User.Identity.Name == item.username || User.IsInRole("admin"))
-                                        {
-                                            @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
-                                            <a onclick="deleteConfirm(@item.post_id,'@item.post_title','@Model.SerieID')" href="#" class="badge badge-danger">Xóa Khỏi serie</a>
-
-                                        }
+                    @foreach (var item in Model.ListPost)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/bai-viet/@item.slug">@item.post_title</a>
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.create_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ViewCount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userfullname)
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status ? "checked" : "") class="success">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>
+                                @{
+                                    if (User.Identity.Name == item.username || User.IsInRole("admin"))
+                                    {
+                                        @Html.ActionLink("Sửa", "editPost", new { id = item.post_id }, new { @class = "badge badge-primary" })
+                                        <a onclick="deleteConfirm(@item.post_id,'@item.post_title','@Model.SerieID')" href="#" class="badge badge-danger">Xóa Khỏi serie</a>
                                     }
+                                }
 
-                                </td>
-                            </tr>
-                        }
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Tiêu đề</th>
-                            <th>Ngày tạo</th>
-                            <th>Lượt xem</th>
-                            <th>Người tạo</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
-                        </tr>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày tạo</th>
+                        <th>Lượt xem</th>
+                        <th>Người tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
@@ -149,7 +147,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-9">
-                        <input type="number" required id="IDPost" placeholder="Nhập id bài viết" class="form-control" />
+                        <input type="number" required id="IDPost" placeholder="Nhập id bài viết" class="form-control"/>
                     </div>
                     <div class="col-3">
                         <button class="btn btn-info" id="btnCheck">Check</button>
@@ -176,4 +174,4 @@
     var serieid = '@Model.SerieID';
     var seriname = '@Model.SerieName';
 </script>
-<script  src="~/Content/js/SeriDetail.js"></script>
+<script src="~/Content/js/SeriDetail.js"></script>

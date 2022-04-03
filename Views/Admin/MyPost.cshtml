@@ -23,7 +23,7 @@
                         @Html.ActionLink("Lượt xem", "ListPost", new { sortOrder = "ViewCount", ViewBag.CurrentSort, ViewBag.titleStr }) |
                     </div>
                     <div class="col-sm-12 col-md-4">
-                        @using (Html.BeginForm("ListPost", "Admin", FormMethod.Get, new { enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm("MyPost", "Admin", FormMethod.Get, new { enctype = "multipart/form-data" }))
                         {
                             <label style="display:inline-block;font-weight:normal;">
                                 Tìm theo ngày đăng:
@@ -74,7 +74,12 @@
                         <th>Ngày tạo</th>
                         <th>Views</th>
                         <th>Người tạo</th>
-                        <th>Hiển thị</th>
+                        @{
+                            if (User.IsInRole("1"))
+                            {
+                                <th>Hiển thị</th>
+                            }
+                        }
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -94,12 +99,18 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.User.fullname)
                             </td>
-                            <td>
-                                <label class="switch">
-                                    <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status ? "checked" : "") class="success">
-                                    <span class="slider"></span>
-                                </label>
-                            </td>
+                            @{
+                                if (User.IsInRole("1"))
+                                {
+                                    <td>
+                                        <label class="switch">
+                                            <input onchange="changeStt(this)" type="checkbox" id="@item.post_id" @(item.status ? "checked" : "") class="success">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                }
+                            }
+
                             <td>
                                 @{
                                     if (User.Identity.Name == item.User.username || User.IsInRole("admin"))
@@ -119,7 +130,12 @@
                         <th>Ngày tạo</th>
                         <th>Lượt xem</th>
                         <th>Người tạo</th>
-                        <th>Trạng thái</th>
+                        @{
+                            if (User.IsInRole("1"))
+                            {
+                                <th>Hiển thị</th>
+                            }
+                        }
                         <th>Hành động</th>
                     </tr>
                     </tfoot>

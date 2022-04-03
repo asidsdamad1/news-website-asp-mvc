@@ -1,0 +1,79 @@
+﻿@using NewsWebsite.CommonData
+@{
+        var data = new GetData();
+    } 
+<footer class="bg-191 color-ccc">
+
+    <div class="container">
+        <div class="pt-50 pb-20 pos-relative">
+            <div class="abs-tblr pt-50 z--1 text-center">
+                @*<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="~/Content/web/images/map.png" alt=""></div>*@
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="mb-30">
+                        <h5 class="color-primary mb-20">
+                            <b>FACEBOOK</b>
+                        </h5>
+                        <div class="fb-page" data-href="https://www.facebook.com/hithaNews/" data-tabs="timeline" data-width="" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/hithaNews/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/hithaNews/">Hít Hà Drama</a>
+                            </blockquote>
+                        </div>
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+
+
+                <div class="col-sm-4">
+                    <div class="mb-30">
+                        <h5 class="color-primary mb-20">
+                            <b>ĐỀ XUẤT CAO</b>
+                        </h5>
+                        @{ var cnt = 2; }
+                        @foreach (var i in data.GetHighRatedPost())
+                        {
+                            <div class="mb-20"> 
+                                <a class="color-white" href="/bai-viet/@i.slug">
+                                    <b>@i.post_title</b>
+                                </a>
+                                <h6 class="mt-10">@string.Format("{0:dd/MM/yyyy}", i.create_date)</h6>
+                            </div>
+                            if (cnt % 2 == 0)
+                            {
+                                <div class="brdr-ash-1 opacty-2 mr-30 mb-2 mt-2"></div>
+                            }
+                            cnt++;
+                        }
+
+
+
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+                <div class="col-sm-4">
+                    <div class="mb-30">
+                        <a href="#">
+                            <img src="~/Content/web/images/logo-white.png">
+                        </a>
+                        <p class="mtb-20 color-ccc">
+                            Hít hà News là trang web chuyên về các loại tin tức nổi bật và mới nhất cả trong và ngoài nước.
+                        </p>
+                        <p class="color-ash">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" rel="nofollow" style="color:#aaa">Colorlib</a>
+
+                        </p>
+                    </div><!-- mb-30 -->
+                </div><!-- col-md-4 -->
+
+
+            </div><!-- row -->
+        </div><!-- ptb-50 -->
+
+        <div class="brdr-ash-1 opacty-2"></div>
+
+        <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+
+        </div>
+    </div>
+</footer>

@@ -59,11 +59,11 @@ $('#deleteBtn').click(function () {
             var notify = $.notify('<strong>Thành công</strong><br/>' + recData.Message + '<br />', {
                 type: 'pastel-info',
                 allow_dismiss: false,
-                timer: 500,
+                timer: 1000,
             });
             setTimeout(function () {
                 window.location.reload();
-            }, 700);
+            }, 1000);
 
         },
         error: function () {

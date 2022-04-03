@@ -471,7 +471,7 @@ namespace NewsWebsite.Controllers
                             join c in conn.Posts on b.post_id equals c.post_id
                             // conditions 
                             where c.dynasty == model.Dynasty.ToString()
-                            where c.status == true
+                            where c.status 
                             orderby c.create_date descending
                             select new
                             {

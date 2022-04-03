@@ -14,14 +14,14 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.Label("Tên website ( tiêu đề trang chủ): ", htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.Label("Tên website ( tiêu đề trang chủ): ", new { @class = "control-label col-md-4" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.web_name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.web_name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Mô tả ngắn của web", htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.Label("Mô tả ngắn của web", new { @class = "control-label col-md-4" })
                 <div class="col-md-10">
                     @Html.TextAreaFor(model => model.web_des, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.web_des, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Nội dung mô tả về Web :", htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.Label("Nội dung mô tả về Web :", new { @class = "control-label col-md-4" })
                 <div class="col-md-10">
                     @Html.TextAreaFor(model => model.web_about, new { @class = "form-control", required = "true" })
                     @Html.ValidationMessageFor(model => model.web_about, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Sửa" class="btn btn-info" />
+                    <input type="submit" value="Sửa" class="btn btn-info"/>
                 </div>
             </div>
         </div>
