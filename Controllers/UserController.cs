@@ -236,6 +236,33 @@ namespace NewsWebsite.Admin.Controllers
             ViewBag.role_id = new SelectList(db.Roles, "role_id", "role_name", user.role_id);
             return View(user);
         }
+        
+        //POST: user/Delete/5
+        [HttpPost]
+        public JsonResult DeleteConfirmed(int id)
+        {
+            User user = UnitOfWork.userRepository.FindByID(id);
+            string title = user.username;
+            if ( User.IsInRole("1"))
+            {
+                UnitOfWork.userRepository.Delete(user);
+                // if (user.post_type == (int)PostType.Slide)
+                // {
+                //     string subPath = Server.MapPath("~/Files/images/slides/" + user.post_id);
+                //     bool exists = System.IO.Directory.Exists(subPath);
+                //     if (exists)
+                //     {
+                //         System.IO.Directory.Delete(subPath, true);
+                //     }
+                // }
+                //xóa ảnh đại diện cũ
+                
+
+                UnitOfWork.Commit();
+                return Json(new { reload = true, Message = "Xóa '" + title + "' thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { Message = "Không thể xóa '" + title + "' <br /> vì đó không phải bài viết của bạn." }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
