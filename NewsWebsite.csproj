@@ -192,7 +192,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Languagess-en.resx</DependentUpon>
     </Compile>
-    <Compile Include="test.cs" />
     <Compile Include="ViewModel\ChangePassViewModel.cs" />
     <Compile Include="ViewModel\InfoViewModel.cs" />
     <Compile Include="ViewModel\ListPostViewModel.cs" />
@@ -3047,8 +3046,10 @@
     <Content Include="Content\ckfinder\skins\v1\skin.js" />
     <Content Include="Content\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Content\ckfinder\translations.txt" />
+    <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\images\apple-icon-120x120.png" />
     <Content Include="Content\images\dvcp.ico" />
+    <Content Include="Content\images\logo_web.png" />
     <Content Include="Content\images\no-image-available.jpg" />
     <Content Include="Content\images\thumbnail-default.jpg" />
     <Content Include="Content\images\ui-icons_444444_256x240.png" />
@@ -3394,6 +3395,10 @@
     <Content Include="Views\Email\SendMail.cshtml" />
     <Content Include="Views\Home\Series.cshtml" />
     <Content Include="Views\Home\SeriesAll.cshtml" />
+    <Content Include="Views\Shared\FooterAdmin.cshtml" />
+    <Content Include="Views\Shared\FooterHome.cshtml" />
+    <Content Include="Views\Shared\MenuHome.cshtml" />
+    <Content Include="Views\Shared\NavbarHome.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\createUser.cshtml" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
@@ -3484,8 +3489,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\ckfinder\bin\Release\" />
-    <Folder Include="Models\Entity" />
-    <Folder Include="Views\Base\" />
+    <Folder Include="Models\Entity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -52,7 +52,7 @@ namespace NewsWebsite.ViewModel
     }
     public class NewPostViewModel
     {
-        [RequiredSelectListItem(ErrorMessage = "Vui lòng chọn ít nhẩt 1 tag")]
+        [RequiredSelectListItem(ErrorMessage = "Vui lòng chọn ít nhất 1 tag")]
         public List<SelectListItem>  post_tag { get; set; }
         public int post_id { get; set; }
         public int? userid { get; set; }

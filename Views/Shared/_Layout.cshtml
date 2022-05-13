@@ -1,11 +1,11 @@
-﻿@using NewsWebsite.CommonData
+﻿
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Hít Hà News</title>
-    <link rel="icon" href="~/Content/images/logo.png" type="image/x-icon"/>
+    <title>@ViewBag.Title - Bóng đá News</title>
+    <link rel="icon" href="~/Content/image/logo_web.png" type="image/x-icon"/>
     <link href="~/Content/web/styles.css" rel="stylesheet"/>
     <link href="~/Content/web/web.css" rel="stylesheet"/>
     <meta property="og:type" content="article"/>
@@ -20,44 +20,40 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
     <link href="//fonts.googleapis.com/css?family=Merriweather:400,700%7CDroid+Serif:400,700" rel="stylesheet" type="text/css">
-    @* @Scripts.Render("~/bundles/modernizr")*@
-    @{
-        var data = new GetData();
-    }
+   
 
 </head>
 <body>
-<header>
-    <div class="bg-191">
-        @Html.Partial("NavbarHome")
-        <!-- container -->
+    <header>
+        <div class="bg-191" style="background-color: #212529">
+            @Html.Partial("NavbarHome")
+            <!-- container -->
+        </div>
+
+        <div class="container back-white">
+            <a class="logo" href="/">
+                <img src="~/Content/images/logo_web.png" alt="Logo" style="height: 5rem;" />
+            </a>
+
+            <a class="menu-nav-icon" data-menu="#main-menu" href="#">
+                <i class="ion-navicon"></i>
+            </a>
+
+            @Html.Partial("MenuHome")
+            <div class="clearfix"></div>
+        </div><!-- container -->
+    </header>
+    <div class="container body-content">
+        @RenderBody()
     </div>
-
-    <div class="container back-white">
-        <a class="logo" href="/">
-            <img src="~/Content/images/logo.png" alt="Logo" style="height: 5rem;">
-        </a>
-
-
-        <a class="menu-nav-icon" data-menu="#main-menu" href="#">
-            <i class="ion-navicon"></i>
-        </a>
-
-        @Html.Partial("MenuHome")
-        <div class="clearfix"></div>
-    </div><!-- container -->
-</header>
-<div class="container body-content">
-    @RenderBody()
-</div>
-@Html.Partial("FooterHome")
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3"></script>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-<script src="~/Content/web/tether.min.js"></script>
-<script src="~/Content/web/scripts.js"></script>
-<script src="~/Content/photoswipe/init.js"></script>
-@RenderSection("scripts", false)
+    @Html.Partial("FooterHome")
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/web/tether.min.js"></script>
+    <script src="~/Content/web/scripts.js"></script>
+    <script src="~/Content/photoswipe/init.js"></script>
+    @RenderSection("scripts", false)
 </body>
 </html>

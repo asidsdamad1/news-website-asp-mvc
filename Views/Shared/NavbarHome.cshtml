@@ -1,5 +1,5 @@
-﻿<div class="container">
-    <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+﻿<div class="container" >
+    <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5" style="background-color: #212529">
 
         <ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10 toplink">
             <li>
@@ -15,17 +15,16 @@
             }
         </ul>
         <div class="d-inline-block float-right mt-2 mr-4">
-            <form action="/tim-kiem" method="get">
-                <input type="text" name="title" placeholder="Tìm kiếm" class="mr-2 txtSearch"/>
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { metaTag = ViewBag.metaTag }))
+            {
+                <input type="text" name="metaTag" value="@ViewBag.metaTag" placeholder="Tìm kiếm" class="mr-2 txtSearch" />
+               
                 <button class="text-white" type="submit">
                     <i class="fa fa-search"></i>
                 </button>
-            </form>
+            }
         </div>
-        @*<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
-                            <li><a class="pl-0 pl-sm-10" href="#"><i class="fa fa-facebook-official"></i></a></li>
-
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        </ul>*@
+      
     </div>
 </div>
+

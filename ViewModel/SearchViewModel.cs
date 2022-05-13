@@ -13,5 +13,6 @@ namespace NewsWebsite.ViewModel
         public Dynasty? Dynasty { get; set; }
         //public string tags { get; set; }
         public List<SelectListItem> post_tag { get; set; } = PostData.getTagList();
+        public string meta_tag { get; set; }
     }
 }

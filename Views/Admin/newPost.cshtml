@@ -58,13 +58,13 @@
                 @Html.Label("Thẻ tag bài viết:", new { @class = "control-label col-md-4" })
                 <div class="col-md-10">
                     <div class="row">
+                        @{ List<SelectListItem> tagList = NewsWebsite.CommonData.PostData.getTagList();}
                         @for (var i = 0; i < Model.post_tag.Count; i++)
                         {
-                            var title = Model.post_tag[i].Text;
                             <div class="col-md-3 form-check abc-checkbox abc-checkbox-primary">
                                 @Html.HiddenFor(model => model.post_tag[i].Value)
                                 @Html.CheckBoxFor(model => model.post_tag[i].Selected, new { @class = "form-check-input" })
-                                @Html.LabelFor(model => model.post_tag[i].Selected, title, new { @class = "form-check-label" })
+                                @Html.LabelFor(model => model.post_tag[i].Selected, tagList[i].Text, new { @class = "form-check-label" })
                             </div>
                         }
                     </div>

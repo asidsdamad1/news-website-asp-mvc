@@ -46,7 +46,8 @@ namespace NewsWebsite.CommonData
             List<ListPostViewModel> lstPosts = new List<ListPostViewModel>();
 
             var x = db.postRepository.AllPosts()
-                .Where(m => m.status == true).OrderBy(m => m.rated)
+                .Where(m => m.status == true)
+                .Where(m => m.rated == 2).OrderBy(m => m.rated)
                 .Take(4)
                 .Select(c => new ListPostViewModel
                 {

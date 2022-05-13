@@ -200,6 +200,7 @@ namespace NewsWebsite.Controllers
                 .Select(m => new Tag { tag_id = int.Parse(m.Value), tag_name = m.Text })
                 );
             ViewBag.title = model.title;
+            ViewBag.metaTag = model.meta_tag;
             bool title = String.IsNullOrEmpty(model.title);
             bool tag = tagList.Count == 0;
             bool dynasty = model.Dynasty == null;

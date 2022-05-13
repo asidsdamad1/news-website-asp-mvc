@@ -247,7 +247,7 @@ namespace NewsWebsite.Admin.Controllers
                 return RedirectToAction("ListPost");
             }
             NewPostViewModel model = new NewPostViewModel();
-            if (post.User.username == User.Identity.Name || User.IsInRole("1"))
+            if (post.User.username == User.Identity.Name || User.Identity.Name == "admin")
             {
                 Dynasty dn;
                 //dynasty - khu vực 
@@ -283,6 +283,7 @@ namespace NewsWebsite.Admin.Controllers
                     post_teaser = post.post_teaser,
                     post_title = post.post_title,
                     post_type = type,
+                    meta_tag = post.post_tag
                 };
                 return View(model);
             }
@@ -302,8 +303,10 @@ namespace NewsWebsite.Admin.Controllers
             untaglist.AddRange(model.post_tag.Where(m => m.Selected == false)
                 .Select(m => new Tag { tag_id = int.Parse(m.Value), tag_name = m.Text })
                 );
+            
             if (ModelState.IsValid && taglist.Count > 0)
             {
+
                 // Nếu như teaser trống hoặc quá ngắn, sẽ dùng content thay thế từ content bài viết
                 if (model.post_teaser == null || model.post_teaser.Length <= 20)
                 {
@@ -340,60 +343,56 @@ namespace NewsWebsite.Admin.Controllers
                 }
                 if (isSavedSuccessfully)
                 {
-                    Post pOST = db.postRepository.FindByID(model.post_id);
-                    if (pOST.User.username != User.Identity.Name)
-                    {
-                        return RedirectToAction("ListPost");
-                    }
-                    pOST.dynasty = model.dynasty.ToString();
-                    pOST.edit_date = DateTime.Now;
-                    pOST.avatar_image = model.AvatarImage;
-                    pOST.post_content = model.post_content;
-                    pOST.post_review = model.post_review;
-                    pOST.post_title = model.post_title;
-                    pOST.post_type = (int)model.post_type;
-                    pOST.rated = (int)model.Rated;
-                    pOST.post_teaser = model.post_teaser;
-                    pOST.status = model.Status;
-                    pOST.post_tag = model.meta_tag;
+                    Post post = db.postRepository.FindByID(model.post_id);
+                    post.dynasty = model.dynasty.ToString();
+                    post.edit_date = DateTime.Now;
+                    post.avatar_image = model.AvatarImage;
+                    post.post_content = model.post_content;
+                    post.post_review = model.post_review;
+                    post.post_title = model.post_title;
+                    post.post_type = (int)model.post_type;
+                    post.rated = (int)model.Rated;
+                    post.post_teaser = model.post_teaser;
+                    post.status = model.Status;
+                    post.post_tag = model.meta_tag;
                     foreach (var i in taglist)
                     {
                         Tag tags = db.tagRepository.FindByID(i.tag_id);
-                        if (!pOST.Tags.Contains(tags))
+                        if (!post.Tags.Contains(tags))
                         {
-                            pOST.Tags.Add(tags);
-                            tags.Posts.Add(pOST);
+                            post.Tags.Add(tags);
+                            tags.Posts.Add(post);
                         }
-                        //else if(pOST.Tbl_Tags.Contains(tags))
+                        //else if(post.Tbl_Tags.Contains(tags))
                         //{
-                        //    pOST.Tbl_Tags.Remove(tags);
-                        //    tags.Tbl_POST.Remove(pOST);
+                        //    post.Tbl_Tags.Remove(tags);
+                        //    tags.Tbl_POST.Remove(post);
                         //}
 
                     }
                     foreach (var i in untaglist)
                     {
                         Tag tags = db.tagRepository.FindByID(i.tag_id);
-                        if (pOST.Tags.Contains(tags))
+                        if (post.Tags.Contains(tags))
                         {
-                            pOST.Tags.Remove(tags);
-                            tags.Posts.Remove(pOST);
+                            post.Tags.Remove(tags);
+                            tags.Posts.Remove(post);
                         }
                     }
                     if (model.UpdateSlug)
                     {
                         string slug = SlugGenerator.SlugGenerator.GenerateSlug(model.post_title.ToLower());
-                        pOST.post_slug = slug;
+                        post.post_slug = slug + "-" + post.post_id;
                         if (db.postRepository.AllPosts().Any(m => m.post_slug == slug))
                         {
-                            pOST.post_slug = slug + "-" + 1;
+                            post.post_slug = slug + "-" + 1;
                         }
                     }
-                    db.postRepository.UpdatePost(pOST);
+                    db.postRepository.UpdatePost(post);
                     db.Commit();
                     if (model.post_type.Equals(PostType.Slide))
                     {
-                        // return View("UploadImage", new UploadViewModel { id = pOST.post_id, title = pOST.post_title });
+                        // return View("UploadImage", new UploadViewModel { id = post.post_id, title = post.post_title });
                     }
 
                 }
